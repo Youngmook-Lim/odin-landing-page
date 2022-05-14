@@ -1,10 +1,25 @@
 "use strict";
 
-console.log("hello world");
-const btns = document.querySelectorAll(".cta-btn");
+const btnShowModal = document.querySelectorAll(".btn--show-modal");
+const btnCloseModal = document.querySelector(".btn--close-modal");
+const modal = document.querySelector(".modal");
+const overlay = document.querySelector(".overlay");
 
-btns.forEach((btn) =>
-  btn.addEventListener("click", function () {
-    console.log("Hi, I'm a button");
-  })
-);
+const showModal = function (e) {
+  modal.classList.remove("hidden");
+  overlay.classList.remove("hidden");
+};
+
+const closeModal = function (e) {
+  modal.classList.add("hidden");
+  overlay.classList.add("hidden");
+};
+
+btnShowModal.forEach((btn) => btn.addEventListener("click", showModal));
+
+btnCloseModal.addEventListener("click", closeModal);
+overlay.addEventListener("click", closeModal);
+
+document.addEventListener("keydown", function (e) {
+  if (e.key === "Escape" && !modal.classList.contains("hidden")) closeModal();
+});
